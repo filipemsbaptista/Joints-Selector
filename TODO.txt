@@ -1,0 +1,6 @@
+Implementar checks para 'mouse hover' e 'mouse clicked' para cada joint, i.e., para cada ofCircle()
+
+  --> Mouse Hover - Desenha um circulo branco ou cinzento, não opaco, em redor do circulo que representa o joint
+
+  --> Mouse Clicked - Desenha um circulo vermelho, não opaco, em redor do circulo que representa o joint
+(Isto irá invocar o painel de parâmetros respetivo àquele joint)
