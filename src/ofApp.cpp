@@ -202,7 +202,7 @@ ofColor ColorPicker::getColor3(){
 --------------------------------------------------------------*/
 float radius = 8;
 ColorPicker cP;
-//--------------------------------------------------------------
+
 void ofApp::setup(){
 	ofSetFrameRate(30);
 	ofBackground(255, 255, 255, 255);
@@ -216,17 +216,132 @@ void ofApp::setup(){
 	headSelected = neckSelected = shoulderLSelected = shoulderRSelected = elbowLSelected = elbowRSelected = handLSelected = handRSelected = 
 		torsoSelected = hipLSelected = hipRSelected = kneeLSelected = kneeRSelected = footLSelected = footRSelected = false;
 
+	hover_head = hover_neck = hover_shoulderL = hover_shoulderR = hover_elbowL = hover_elbowR = hover_handL = hover_handR =
+			hover_torso = hover_hipL = hover_hipR = hover_kneeL = hover_kneeR = hover_footL = hover_footR = false;
+
 	setupJointsPositions();
 
 	cP.setup();
 }
 
-//--------------------------------------------------------------
 void ofApp::update(){
+	//Check if mouse is inside joints selector
+	if(mouseX > ofGetWidth() - fbo.getWidth() - 15 && mouseX < ofGetWidth() - 15 && mouseY > 50 && mouseY < 50 + fbo.getHeight()){
+		printf("Inside selector ...\n\n");
+		
+		//CHECK MOUSE HOVER
+		//Head
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + headPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + headPos.x - radius)
+			&& mouseY > (50 + headPos.y - radius) && mouseY < (50 + headPos.y + radius)){
+			hover_head = true;
+		}
+		else
+			hover_head = false;
+		//Neck
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + neckPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + neckPos.x - radius)
+			&& mouseY > (50 + neckPos.y - radius) && mouseY < (50 + neckPos.y + radius)){
+			hover_neck = true;
+		}
+		else
+			hover_neck = false;
+		//Shoulders
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + shoulderLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + shoulderLPos.x - radius)
+			&& mouseY > (50 + shoulderLPos.y - radius) && mouseY < (50 + shoulderLPos.y + radius)){
+			hover_shoulderL = true;
+		}
+		else
+			hover_shoulderL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + shoulderRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + shoulderRPos.x - radius)
+			&& mouseY > (50 + shoulderRPos.y - radius) && mouseY < (50 + shoulderRPos.y + radius)){
+			hover_shoulderR = true;
+		}
+		else
+			hover_shoulderR = false;
+		//Elbows
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + elbowLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + elbowLPos.x - radius)
+			&& mouseY > (50 + elbowLPos.y - radius) && mouseY < (50 + elbowLPos.y + radius)){
+			hover_elbowL = true;
+		}
+		else
+			hover_elbowL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + elbowRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + elbowRPos.x - radius)
+			&& mouseY > (50 + elbowRPos.y - radius) && mouseY < (50 + elbowRPos.y + radius)){
+			hover_elbowR = true;
+		}
+		else
+			hover_elbowR= false;
+		//Hands
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + handLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + handLPos.x - radius)
+			&& mouseY > (50 + handLPos.y - radius) && mouseY < (50 + handLPos.y + radius)){
+			hover_handL = true;
+		}
+		else
+			hover_handL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + handRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + handRPos.x - radius)
+			&& mouseY > (50 + handRPos.y - radius) && mouseY < (50 + handRPos.y + radius)){
+			hover_handR = true;
+		}
+		else
+			hover_handR = false;
+		//Torso
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + torsoPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + torsoPos.x - radius)
+			&& mouseY > (50 + torsoPos.y - radius) && mouseY < (50 + torsoPos.y + radius)){
+			hover_torso = true;
+		}
+		else
+			hover_torso = false;
+		//Hips
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + hipLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + hipLPos.x - radius)
+			&& mouseY > (50 + hipLPos.y - radius) && mouseY < (50 + hipLPos.y + radius)){
+			hover_hipL = true;
+		}
+		else
+			hover_hipL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + hipRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + hipRPos.x - radius)
+			&& mouseY > (50 + hipRPos.y - radius) && mouseY < (50 + hipRPos.y + radius)){
+			hover_hipR = true;
+		}
+		else
+			hover_hipR = false;
+		//Knees
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + kneeLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + kneeLPos.x - radius)
+			&& mouseY > (50 + kneeLPos.y - radius) && mouseY < (50 + kneeLPos.y + radius)){
+			hover_kneeL = true;
+		}
+		else
+			hover_kneeL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + kneeRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + kneeRPos.x - radius)
+			&& mouseY > (50 + kneeRPos.y - radius) && mouseY < (50 + kneeRPos.y + radius)){
+			hover_kneeR = true;
+		}
+		else
+			hover_kneeR = false;
+		//Feet
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + footLPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + footLPos.x - radius)
+			&& mouseY > (50 + footLPos.y - radius) && mouseY < (50 + footLPos.y + radius)){
+			hover_footL = true;
+		}
+		else
+			hover_footL = false;
+
+		if(mouseX < (ofGetWidth() - fbo.getWidth() - 15 + footRPos.x + radius) && mouseX > (ofGetWidth() - fbo.getWidth() - 15 + footRPos.x - radius)
+			&& mouseY > (50 + footRPos.y - radius) && mouseY < (50 + footRPos.y + radius)){
+			hover_footR = true;
+		}
+		else
+			hover_footR = false;
+		//---------------- END OF HOVER CHECK  ----------------
+	}
+
+
 	cP.update();
 }
 
-//--------------------------------------------------------------
 void ofApp::draw(){
 	ofBackgroundGradient(ofColor::white, ofColor::black, OF_GRADIENT_CIRCULAR);
 
@@ -239,13 +354,169 @@ void ofApp::draw(){
 		img.draw(0, 0);
 
 
-		// ----------------------------------------------
 		//2. Draw joints
 		ofEnableAlphaBlending();  
 		ofFill();
 		ofSetColor(ofColor::green);
+		drawJoints();
 
-		//Draw head joint
+		
+		//3. Draw bones
+		drawBones();
+		
+		//Draw hover information
+		if(hover_head){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(headPos.x, headPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_neck){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(neckPos.x, neckPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_shoulderL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(shoulderLPos.x, shoulderLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_shoulderR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(shoulderRPos.x, shoulderRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_elbowL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(elbowLPos.x, elbowLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_elbowR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(elbowRPos.x, elbowRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_handL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(handLPos.x, handLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_handR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(handRPos.x, handRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+
+		}
+		if(hover_torso){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(torsoPos.x, torsoPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_hipL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(hipLPos.x, hipLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_hipR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(hipRPos.x, hipRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_kneeL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(kneeLPos.x, kneeLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_kneeR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(kneeRPos.x, kneeRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_footL){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(footLPos.x, footLPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		if(hover_footR){
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(ofColor::grey);
+			ofCircle(footRPos.x, footRPos.y, 1, radius);
+			ofFill();
+			ofSetLineWidth(1);
+		}
+		fbo.end();
+		glEnable(GL_BLEND);  
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);  
+
+		ofSetColor(255,255,255);
+		fbo.draw(ofGetWidth() - fbo.getWidth() - 15, 50);
+
+		cP.draw();
+	}
+}
+
+void ofApp::setupJointsPositions(){
+	headPos = ofPoint(fbo.getWidth()/2, 25);
+	neckPos = ofPoint(fbo.getWidth()/2, 65);
+	shoulderLPos = ofPoint(fbo.getWidth()/2 - 30, 75);
+	shoulderRPos = ofPoint(fbo.getWidth()/2 + 30, 75);
+	elbowLPos = ofPoint(fbo.getWidth()/2 - 40, 125);
+	elbowRPos = ofPoint(fbo.getWidth()/2 + 40, 125);
+	handLPos = ofPoint(fbo.getWidth()/2 - 58, 185);
+	handRPos = ofPoint(fbo.getWidth()/2 + 58, 185);
+	torsoPos = ofPoint(fbo.getWidth()/2, 120);
+	hipLPos = ofPoint(fbo.getWidth()/2 - 20, 170);
+	hipRPos = ofPoint(fbo.getWidth()/2 + 20, 170);
+	kneeLPos = ofPoint(fbo.getWidth()/2 - 18, 240);
+	kneeRPos = ofPoint(fbo.getWidth()/2 + 20, 240);
+	footLPos = ofPoint(fbo.getWidth()/2 - 21, 305);
+	footRPos = ofPoint(fbo.getWidth()/2 + 26, 305);
+}
+
+void ofApp::drawJoints(){
+	//Draw head joint
 		if(headSelected)
 			ofFill();		
 		else
@@ -344,9 +615,9 @@ void ofApp::draw(){
 			ofNoFill();
 		ofCircle(footRPos.x, footRPos.y, 1, radius);
 
+}
 
-		// ----------------------------------------------
-		//3. Draw bones
+void ofApp::drawBones(){
 		ofLine(ofPoint(headPos.x, headPos.y + radius), ofPoint(neckPos.x, neckPos.y - radius));
 		ofLine(ofPoint(neckPos.x - radius, neckPos.y), ofPoint(shoulderLPos.x + radius, shoulderLPos.y - 5));
 		ofLine(ofPoint(neckPos.x + radius, neckPos.y), ofPoint(shoulderRPos.x - radius, shoulderRPos.y - 5));
@@ -363,37 +634,8 @@ void ofApp::draw(){
 		ofLine(ofPoint(hipRPos.x, hipRPos.y + radius), ofPoint(kneeRPos.x, kneeRPos.y - radius));
 		ofLine(ofPoint(kneeLPos.x, kneeLPos.y + radius), ofPoint(footLPos.x, footLPos.y - radius));
 		ofLine(ofPoint(kneeRPos.x, kneeRPos.y + radius), ofPoint(footRPos.x, footRPos.y - radius));
-
-		fbo.end();
-
-		glEnable(GL_BLEND);  
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);  
-
-		ofSetColor(255,255,255);
-
-		fbo.draw(ofGetWidth() - fbo.getWidth() - 15, 50);
-
-		cP.draw();
-	}
 }
 
-void ofApp::setupJointsPositions(){
-	headPos = ofPoint(fbo.getWidth()/2, 25);
-	neckPos = ofPoint(fbo.getWidth()/2, 65);
-	shoulderLPos = ofPoint(fbo.getWidth()/2 - 30, 75);
-	shoulderRPos = ofPoint(fbo.getWidth()/2 + 30, 75);
-	elbowLPos = ofPoint(fbo.getWidth()/2 - 40, 125);
-	elbowRPos = ofPoint(fbo.getWidth()/2 + 40, 125);
-	handLPos = ofPoint(fbo.getWidth()/2 - 58, 185);
-	handRPos = ofPoint(fbo.getWidth()/2 + 58, 185);
-	torsoPos = ofPoint(fbo.getWidth()/2, 120);
-	hipLPos = ofPoint(fbo.getWidth()/2 - 20, 170);
-	hipRPos = ofPoint(fbo.getWidth()/2 + 20, 170);
-	kneeLPos = ofPoint(fbo.getWidth()/2 - 18, 240);
-	kneeRPos = ofPoint(fbo.getWidth()/2 + 20, 240);
-	footLPos = ofPoint(fbo.getWidth()/2 - 21, 305);
-	footRPos = ofPoint(fbo.getWidth()/2 + 26, 305);
-}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){

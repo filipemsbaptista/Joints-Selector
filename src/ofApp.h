@@ -23,6 +23,8 @@ class ofApp : public ofBaseApp{
 		ofImage img;
 
 		void setupJointsPositions();
+		void drawJoints(), drawBones();
+
 		ofPoint  headPos, neckPos, shoulderLPos, shoulderRPos, elbowLPos, elbowRPos, handLPos, handRPos,
 			torsoPos, hipLPos, hipRPos, kneeLPos, kneeRPos, footLPos, footRPos;
 		
@@ -30,5 +32,8 @@ class ofApp : public ofBaseApp{
 
 		bool headSelected, neckSelected, shoulderLSelected, shoulderRSelected, elbowLSelected, elbowRSelected, handLSelected, handRSelected,
 			torsoSelected, hipLSelected, hipRSelected, kneeLSelected, kneeRSelected, footLSelected, footRSelected;
-		
+
+		bool hover_head, hover_neck, hover_shoulderL, hover_shoulderR, hover_elbowL, hover_elbowR, hover_handL, hover_handR,
+			hover_torso, hover_hipL, hover_hipR, hover_kneeL, hover_kneeR, hover_footL, hover_footR;
+
 };
