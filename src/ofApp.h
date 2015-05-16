@@ -30,10 +30,11 @@ class ofApp : public ofBaseApp{
 		
 		bool visible;
 
-		bool headSelected, neckSelected, shoulderLSelected, shoulderRSelected, elbowLSelected, elbowRSelected, handLSelected, handRSelected,
-			torsoSelected, hipLSelected, hipRSelected, kneeLSelected, kneeRSelected, footLSelected, footRSelected;
+		bool headActivated, neckActivated, shoulderLActivated, shoulderRActivated, elbowLActivated, elbowRActivated, handLActivated, handRActivated,
+			torsoActivated, hipLActivated, hipRActivated, kneeLActivated, kneeRActivated, footLActivated, footRActivated;
 
 		bool hover_head, hover_neck, hover_shoulderL, hover_shoulderR, hover_elbowL, hover_elbowR, hover_handL, hover_handR,
 			hover_torso, hover_hipL, hover_hipR, hover_kneeL, hover_kneeR, hover_footL, hover_footR;
 
+		int jointSelected;
 };
